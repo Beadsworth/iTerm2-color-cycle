@@ -25,12 +25,12 @@ async def set_preset_and_tab_color(connection, session, preset_name):
 
     profile = await session.async_get_profile()
     if not profile or profile.name not in enabled_profiles:
-        print("bad profile")
+        print("disabled profile")
         return
 
     preset = await iterm2.ColorPreset.async_get(connection, preset_name)
     if not preset:
-        print("bad preset")
+        print("disabled preset")
         return
 
     # Query the actual background color from the session

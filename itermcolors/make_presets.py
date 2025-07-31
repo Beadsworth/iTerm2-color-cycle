@@ -23,7 +23,6 @@ def make_new_itermcolors(
     b: int,
     output_dir: pathlib.Path
 ):
-    print(r, g, b)
 
     # preprend "template." to filename
     new_name = original_path.name.replace("template.", f'{name}.')
@@ -31,7 +30,6 @@ def make_new_itermcolors(
 
     # rgb calc
     (rr, gr, br) = (f'{r/255.0:.17f}', f'{g/255.0:.17f}', f'{b/255.0:.17f}')
-    print(rr, gr, br)
 
     # placeholder replacements
     replace_map = {
@@ -49,8 +47,6 @@ def make_new_itermcolors(
     for placeholder, color_value in replace_map.items():
         assert placeholder in template, f"placeholder not found: {placeholder}"
         output_txt = output_txt.replace(placeholder, color_value)
-
-    print(output_txt)
 
     # write file
     with open(output_path, mode="w+") as file:
