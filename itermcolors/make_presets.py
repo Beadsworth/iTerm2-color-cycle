@@ -3,15 +3,15 @@
 import pathlib
 
 templates = {
-    "black": (63, 66, 80),
-    "red": (110, 51, 51),
-    "orange": (110, 86, 51),
-    "yellow": (108, 110, 51),
-    "green": (51, 110, 69),
-    "blue": (51, 96, 110),
-    "indigo": (51, 63, 110),
-    "violet": (84, 51, 110),
-    "magenta": (110, 51, 106),
+    "black": (31, 33, 40),
+    "magenta": (55, 25, 53),
+    "violet": (42, 25, 55),
+    "indigo": (25, 31, 55),
+    "blue": (25, 48, 55),
+    "green": (25, 55, 34),
+    "yellow": (54, 55, 25),
+    "orange": (55, 43, 25),
+    "red": (55, 25, 25),
 }
 
 
@@ -57,8 +57,8 @@ def make_new_itermcolors(
         file.write(output_txt)
 
 
-original_path = pathlib.Path(r"/Users/james.beadsworth/Library/Application Support/iTerm2/Scripts/itermcolors/templates/template.PaleNightHC.itermcolors")
-output_dir = pathlib.Path(r'/Users/james.beadsworth/Library/Application Support/iTerm2/Scripts/itermcolors/derivatives')
+original_path = pathlib.Path(r"templates/template.PaleNightHC.itermcolors")
+output_dir = pathlib.Path(r'derivatives')
 for name, (r, g, b) in templates.items():
     make_new_itermcolors(
         original_path=original_path,
