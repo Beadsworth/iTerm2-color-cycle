@@ -5,7 +5,7 @@ import itertools
 
 
 enabled_profiles = (
-    "random-color",
+    "cycle-color",
 )
 
 enabled_presets = (
