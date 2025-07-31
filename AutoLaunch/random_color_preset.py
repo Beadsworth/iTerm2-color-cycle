@@ -8,10 +8,16 @@ enabled_profiles = (
     "random-color",
 )
 
-enabled_presets = ( 
-    "PaleNightHC-red",
-    "PaleNightHC-green",
-    "PaleNightHC-blue",
+enabled_presets = (
+    "black.PaleNightHC",
+    "blue.PaleNightHC",
+    "green.PaleNightHC",
+    "indigo.PaleNightHC",
+    "magenta.PaleNightHC",
+    "orange.PaleNightHC",
+    "red.PaleNightHC",
+    "violet.PaleNightHC",
+    "yellow.PaleNightHC",
 )
 
 
