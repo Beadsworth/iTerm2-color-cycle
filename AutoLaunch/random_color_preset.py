@@ -4,18 +4,27 @@ import iterm2
 import random
 
 
-enabled_profiles = [
-    "Default",
-]
+enabled_profiles = (
+    "random-color",
+)
+
+enabled_presets = ( 
+    "PaleNightHC-red",
+    "PaleNightHC-green",
+    "PaleNightHC-blue",
+)
 
 
 async def set_preset_and_tab_color(connection, session, preset_name):
-    preset = await iterm2.ColorPreset.async_get(connection, preset_name)
-    if not preset:
-        return
 
     profile = await session.async_get_profile()
-    if not profile or profile not in enabled_profiles:
+    if not profile or profile.name not in enabled_profiles:
+        print("bad profile")
+        return
+
+    preset = await iterm2.ColorPreset.async_get(connection, preset_name)
+    if not preset:
+        print("bad preset")
         return
 
     # Query the actual background color from the session
@@ -24,6 +33,7 @@ async def set_preset_and_tab_color(connection, session, preset_name):
     bg_color = preset_color_dict["Background Color"]
 
     if not bg_color:
+        print("no background color")
         return
 
     print(f'Changing profile {profile.name} to preset: {preset_name}')
@@ -38,7 +48,11 @@ async def set_preset_and_tab_color(connection, session, preset_name):
 async def main(connection):
     app = await iterm2.async_get_app(connection)
     # Note: in your environment you might need async_get_list instead of async_list_presets
-    color_preset_names = await iterm2.ColorPreset.async_get_list(connection)
+    color_preset_names_all = await iterm2.ColorPreset.async_get_list(connection)
+    color_preset_names = [
+        preset_name for preset_name in color_preset_names_all
+        if preset_name in enabled_presets
+        ]
 
     async with iterm2.NewSessionMonitor(connection) as mon:
         while True:
