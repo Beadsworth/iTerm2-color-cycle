@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import iterm2
-import random
+import itertools
 
 
 enabled_profiles = (
@@ -10,14 +10,14 @@ enabled_profiles = (
 
 enabled_presets = (
     "black.PaleNightHC",
+    "violet.PaleNightHC",
+    "indigo.PaleNightHC",
     "blue.PaleNightHC",
     "green.PaleNightHC",
-    "indigo.PaleNightHC",
-    "magenta.PaleNightHC",
+    "yellow.PaleNightHC",
     "orange.PaleNightHC",
     "red.PaleNightHC",
-    "violet.PaleNightHC",
-    "yellow.PaleNightHC",
+    "magenta.PaleNightHC",
 )
 
 
@@ -56,16 +56,17 @@ async def main(connection):
     # Note: in your environment you might need async_get_list instead of async_list_presets
     color_preset_names_all = await iterm2.ColorPreset.async_get_list(connection)
     color_preset_names = [
-        preset_name for preset_name in color_preset_names_all
-        if preset_name in enabled_presets
+        preset_name for preset_name in enabled_presets
+        if preset_name in color_preset_names_all
         ]
+    color_cycle = itertools.cycle(color_preset_names)
 
     async with iterm2.NewSessionMonitor(connection) as mon:
         while True:
             session_id = await mon.async_get()
             session = app.get_session_by_id(session_id)
             if session:
-                chosen = random.choice(color_preset_names)
+                chosen = next(color_cycle)
                 await set_preset_and_tab_color(connection, session, chosen)
 
 
